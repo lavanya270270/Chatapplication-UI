@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Application UI</title>
+  <link rel="icon" href="E:\UI\img.png">
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f3f4f6;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sidebar li:hover,
+.sidebar .active {
+  background-color: #4169b3;
+}
+
+/* Chat Window */
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-left: 1px solid #e5e7eb;
+}
+
+.chat-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background-color: #7097e0;
+  color: white;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  background-color: #f1f5f9;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  max-width: 60%;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background-color: #e0f2fe;
+}
+
+/* Input */
+.chat-input {
+  display: flex;
+  padding: 10px 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  margin-right: 10px;
+  outline: none;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #1e40af;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Chats</h2>
+      <ul>
+        <li class="active">General Chat</li>
+        <li>Support</li>
+        <li>Friends</li>
+      </ul>
+    </aside>
+    
+    <main class="chat-window">
+      <div class="chat-header">
+        <h3>General Chat</h3>
+        <span class="status online">Online</span>
+      </div>
+      
+      <div class="chat-messages">
+        <div class="message bot">
+          <span>👋 Hello! How can I help you today?</span>
+        </div>
+      </div>
+      
+      <div class="chat-input">
+        <input type="text" placeholder="Type a message..." />
+        <button>Send</button>
+      </div>
+    </main>
+  </div>
+  <script>
+  
+  const input = document.querySelector('.chat-input input');
+  const button = document.querySelector('.chat-input button');
+  const messages = document.querySelector('.chat-messages');
+
+  button.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  function sendMessage() {
+    const text = input.value.trim();
+    if (text === '') return;
+
+    const msg = document.createElement('div');
+    msg.className = 'message user';
+    msg.textContent = text;
+    messages.appendChild(msg);
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+  }
+</script>
+</body>
+</html>
